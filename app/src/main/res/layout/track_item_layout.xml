@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/track_artwork"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/track_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="Track Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#000"
+            app:layout_constraintLeft_toRightOf="@+id/guide"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/track_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="P10.00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintLeft_toRightOf="@+id/guide"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/track_name" />
+
+        <TextView
+            android:id="@+id/track_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:text="Song"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintLeft_toRightOf="@+id/guide"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/track_price" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
