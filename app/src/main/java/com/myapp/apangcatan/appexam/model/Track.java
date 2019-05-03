@@ -6,9 +6,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
-/*
-* SerializedName specify the JSON Properties to be accessed
-* ColumnInfo specify the table's column name
+/**
+* @SerializedName specify the JSON Properties to be accessed
+* @ColumnInfo specify the table's column name
 * */
 @Entity(tableName = "track_table")
 public class Track {
@@ -37,8 +37,7 @@ public class Track {
     @ColumnInfo(name = "long_description")
     private String longDescription = "No available description";
 
-    public Track() {
-    }
+    public Track() { }
 
     public int getId() {
         return id;

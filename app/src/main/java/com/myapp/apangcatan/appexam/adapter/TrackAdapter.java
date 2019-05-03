@@ -13,11 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.myapp.apangcatan.appexam.R;
 import com.myapp.apangcatan.appexam.model.Track;
+import com.myapp.apangcatan.appexam.util.Constant;
 import com.myapp.apangcatan.appexam.util.GlideApp;
 import com.myapp.apangcatan.appexam.view.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHolder> {
     private List<Track> trackList = new ArrayList<>();
@@ -39,26 +42,28 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
 
     @Override
     public void onBindViewHolder(@NonNull TrackViewHolder holder, final int position) {
-        holder.txtviewTrackName.setText(trackList.get(position).getTrackName());
-        holder.txtviewTrackPrice.setText(trackList.get(position).getPrice() + "");
-        holder.txtviewTrackGenre.setText(trackList.get(position).getGenre());
+        holder.textTrackName.setText(trackList.get(position).getTrackName());
+        holder.textTrackPrice.setText(trackList.get(position).getPrice() + "");
+        holder.textTrackGenre.setText(trackList.get(position).getGenre());
 
         GlideApp
                 .with(holder.itemView.getContext())
                 .load(trackList.get(position).getArtWork())
                 .centerCrop()
+                .transition(withCrossFade())
                 .placeholder(R.drawable.glide_placeholder)
                 .error(R.drawable.glide_error)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.imgArtWork);
+                .into(holder.imgArtwork);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DetailActivity.class);
-                intent.putExtra("track_name", trackList.get(position).getTrackName());
-                intent.putExtra("img_url", trackList.get(position).getArtWork());
-                intent.putExtra("long_description", trackList.get(position).getLongDescription());
+                intent.putExtra(Constant.TRACK_NAME_EXTRA, trackList.get(position).getTrackName());
+                intent.putExtra(Constant.TRACK_DESCRIPTION_EXTRA, trackList.get(position).getLongDescription());
+                intent.putExtra(Constant.ARTWORK_URL_EXTRA, trackList.get(position).getArtWork());
+
                 v.getContext().startActivity(intent);
             }
         });
@@ -71,18 +76,18 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.TrackViewHol
     }
 
     class TrackViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgArtWork;
-        TextView txtviewTrackName;
-        TextView txtviewTrackPrice;
-        TextView txtviewTrackGenre;
+        ImageView imgArtwork;
+        TextView textTrackName;
+        TextView textTrackPrice;
+        TextView textTrackGenre;
 
 
         public TrackViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgArtWork = itemView.findViewById(R.id.track_artwork);
-            txtviewTrackName = itemView.findViewById(R.id.track_name);
-            txtviewTrackPrice = itemView.findViewById(R.id.track_price);
-            txtviewTrackGenre = itemView.findViewById(R.id.track_genre);
+            imgArtwork = itemView.findViewById(R.id.img_item_artwork);
+            textTrackName = itemView.findViewById(R.id.text_item_name);
+            textTrackPrice = itemView.findViewById(R.id.text_item_price);
+            textTrackGenre = itemView.findViewById(R.id.text_item_genre);
         }
     }
 }

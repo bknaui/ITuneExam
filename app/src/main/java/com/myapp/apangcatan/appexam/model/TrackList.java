@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * @SerializedName specify the JSON Properties to be accessed
+ */
 public class TrackList {
 
     @SerializedName("results")

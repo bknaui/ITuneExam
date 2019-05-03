@@ -2,13 +2,13 @@ package com.myapp.apangcatan.appexam.repository.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.myapp.apangcatan.appexam.util.Constant;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public static final String BASE_URL = "https://itunes.apple.com";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofit() {
@@ -18,7 +18,7 @@ public class RetrofitClient {
                     .create();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(Constant.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
 

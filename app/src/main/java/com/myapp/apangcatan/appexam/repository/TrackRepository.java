@@ -2,15 +2,14 @@ package com.myapp.apangcatan.appexam.repository;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Room;
 
-import com.myapp.apangcatan.appexam.repository.local.AppDatabase;
 import com.myapp.apangcatan.appexam.model.Track;
 import com.myapp.apangcatan.appexam.model.TrackList;
+import com.myapp.apangcatan.appexam.repository.local.AppDatabase;
 import com.myapp.apangcatan.appexam.repository.local.TrackDao;
 import com.myapp.apangcatan.appexam.repository.remote.RetrofitClient;
 import com.myapp.apangcatan.appexam.repository.remote.TrackApi;
@@ -23,17 +22,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class TrackRepository {
-    private LiveData<List<Track>> mutableTrackList;
+    private LiveData<List<Track>> liveDataTrackList;
+    private MutableLiveData<String> mutableLiveDataMessage = new MutableLiveData<>();
     private TrackDao trackDao;
 
 
     public TrackRepository(Context context) {
         trackDao = Room.databaseBuilder(context, AppDatabase.class, "track-db").build().trackDao();
-        mutableTrackList = trackDao.loadTracks();
+        liveDataTrackList = trackDao.loadTracks();
+    }
+
+    public MutableLiveData<String> getMutableLiveDataMessage() {
+        return mutableLiveDataMessage;
     }
 
     public LiveData<List<Track>> getMutableTrackList() {
-        return mutableTrackList;
+        return liveDataTrackList;
     }
 
     public void loadTracks() {
@@ -48,7 +52,8 @@ public class TrackRepository {
 
             @Override
             public void onFailure(Call<TrackList> call, Throwable t) {
-
+                //When loading tracks throws an error, notify user via snackbar
+                mutableLiveDataMessage.setValue("Something went wrong, please try again");
             }
         });
     }
